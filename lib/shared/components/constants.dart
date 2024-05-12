@@ -1,0 +1,1 @@
+List<String> tabsName = ["Business", "Sports", "Science", "Settings"];
