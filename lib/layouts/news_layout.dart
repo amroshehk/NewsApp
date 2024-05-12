@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/shared/components/strings.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
+import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({super.key});
@@ -22,7 +23,11 @@ class NewsLayout extends StatelessWidget {
               title: Text(appName),
               actions: [
                 IconButton(onPressed: (){
-
+                  DioHelper.getBusinessData().then((value){
+                    print(value.data.toString());
+                  }).catchError((error){
+                    print(error);
+                  });
                 }, icon: Icon(Icons.search))
               ],
             ),
