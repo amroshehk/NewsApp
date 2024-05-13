@@ -9,6 +9,7 @@ import 'package:news_app/modules/settings_screen.dart';
 import 'package:news_app/modules/sports_screen.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/components/constants.dart';
+import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class AppCubit extends Cubit<AppStates>{
   AppCubit() : super(AppInitiateStates());
@@ -50,6 +51,20 @@ class AppCubit extends Cubit<AppStates>{
   void changeBottomNavigationTab(currentPosition) {
     this.currentPosition = currentPosition;
     emit(AppBottomNavigationStates());
+  }
+
+ List<dynamic> businessList = [];
+
+  void getBusinessData() {
+    emit(AppLoadingBusinessStates());
+    DioHelper.getBusinessData().then((value) {
+      businessList = value.data["articles"];
+      print(businessList.toString());
+      emit(AppSuccessBusinessStates());
+    }).catchError((error){
+      print(error.toString());
+      emit(AppFailureBusinessStates(error.toString()));
+    });
   }
 
 }

@@ -13,7 +13,7 @@ class NewsLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+      create: (BuildContext context) => AppCubit()..getBusinessData(),
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context, AppStates state) {  },
         builder: (context, state) {
@@ -23,11 +23,7 @@ class NewsLayout extends StatelessWidget {
               title: Text(appName),
               actions: [
                 IconButton(onPressed: (){
-                  DioHelper.getBusinessData().then((value){
-                    print(value.data.toString());
-                  }).catchError((error){
-                    print(error);
-                  });
+
                 }, icon: Icon(Icons.search))
               ],
             ),
