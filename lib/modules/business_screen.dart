@@ -16,7 +16,7 @@ class BusinessScreen extends StatelessWidget {
       builder: (BuildContext context, AppStates state) {
         var list = AppCubit
             .get(context)
-            .businessList;
+            .businessArticles;
         print("BusinessScreen $state");
           return newsItemBuilder(list, "no business articles",state,context);
       },

@@ -73,7 +73,9 @@ Widget newsItemBuilder(List<dynamic> article, String messageNoArticle,
       },
       builder: (context) {
         return ConditionalBuilder(
-          condition: state != AppLoadingBusinessStates,
+          condition: state != AppLoadingBusinessStates ||
+              state != AppLoadingScienceStates ||
+              state != AppLoadingSportsStates,
           builder: (context) => ListView.separated(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,

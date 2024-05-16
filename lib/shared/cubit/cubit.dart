@@ -22,7 +22,6 @@ class AppCubit extends Cubit<AppStates>{
     const BusinessScreen(),
     const SportsScreen(),
     const ScienceScreen(),
-    const SettingsScreen()
   ];
 
   List<BottomNavigationBarItem> bottomItems = [
@@ -41,11 +40,6 @@ class AppCubit extends Cubit<AppStates>{
           Icons.science,
         ),
         label: tabsName[2]),
-    BottomNavigationBarItem(
-        icon: const Icon(
-          Icons.settings,
-        ),
-        label: tabsName[3]),
   ];
 
   void changeBottomNavigationTab(currentPosition) {
@@ -53,17 +47,44 @@ class AppCubit extends Cubit<AppStates>{
     emit(AppBottomNavigationStates());
   }
 
- List<dynamic> businessList = [];
+ List<dynamic> businessArticles = [];
+ List<dynamic> scienceArticles = [];
+ List<dynamic> sportArticles = [];
+
 
   void getBusinessData() {
     emit(AppLoadingBusinessStates());
-    DioHelper.getBusinessData().then((value) {
-      businessList = value.data["articles"];
-      print(businessList.toString());
+    DioHelper.getArticlesByCategoryData(businessCategory).then((value) {
+      businessArticles = value.data["articles"];
+      print(businessArticles.toString());
       emit(AppSuccessBusinessStates());
     }).catchError((error){
       print(error.toString());
       emit(AppFailureBusinessStates(error.toString()));
+    });
+  }
+
+  void getSciencesData() {
+    emit(AppLoadingScienceStates());
+    DioHelper.getArticlesByCategoryData(scienceCategory).then((value) {
+      scienceArticles = value.data["articles"];
+      print(scienceArticles.toString());
+      emit(AppSuccessScienceStates());
+    }).catchError((error){
+      print(error.toString());
+      emit(AppFailureScienceStates(error.toString()));
+    });
+  }
+
+  void getSportsData() {
+    emit(AppLoadingSportsStates());
+    DioHelper.getArticlesByCategoryData(sportsCategory).then((value) {
+      sportArticles = value.data["articles"];
+      print(sportArticles.toString());
+      emit(AppSuccessSportsStates());
+    }).catchError((error){
+      print(error.toString());
+      emit(AppFailureSportsStates(error.toString()));
     });
   }
 

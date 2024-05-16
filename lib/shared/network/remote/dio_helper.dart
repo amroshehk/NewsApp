@@ -17,11 +17,11 @@ class DioHelper {
     return await dio.get(path ,queryParameters:queryParameters);
   }
 
-  static Future<Response> getBusinessData() async {
+  static Future<Response> getArticlesByCategoryData(category) async {
     return
         await getData(path: topHeadLineApi, queryParameters: {
           'country':'eg',
-          'category':'business',
+          'category':category,
           'apiKey':apiKey,
         }
         );

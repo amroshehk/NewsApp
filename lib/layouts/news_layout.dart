@@ -11,32 +11,34 @@ class NewsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (BuildContext context) => AppCubit()..getBusinessData(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context, AppStates state) {  },
-        builder: (context, state) {
-          var cubit = AppCubit.get(context);
-         return Scaffold(
-            appBar: AppBar(
-              title: Text(appName),
-              actions: [
-                IconButton(onPressed: (){
-
-                }, icon: Icon(Icons.search))
-              ],
-            ),
-            bottomNavigationBar: BottomNavigationBar(
+      child: BlocConsumer<AppCubit, AppStates>(
+          listener: (BuildContext context, AppStates state) {},
+          builder: (context, state) {
+            var cubit = AppCubit.get(context);
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(appName),
+                actions: [
+                  IconButton(onPressed: () {}, icon: Icon(Icons.search))
+                ],
+              ),
+              bottomNavigationBar: BottomNavigationBar(
                 items: cubit.bottomItems,
-            currentIndex: cubit.currentPosition,
-            onTap: (value) {
-              cubit.changeBottomNavigationTab(value);
-            },),
-           body: cubit.screens[cubit.currentPosition],
-          );
-        }
-      ),
+                currentIndex: cubit.currentPosition,
+                onTap: (value) {
+                  cubit.changeBottomNavigationTab(value);
+                  if (value == 1 && cubit.sportArticles.isEmpty) {
+                    cubit.getSportsData();
+                  } else if (value == 2 && cubit.scienceArticles.isEmpty) {
+                    cubit.getSciencesData();
+                  }
+                },
+              ),
+              body: cubit.screens[cubit.currentPosition],
+            );
+          }),
     );
   }
 }
