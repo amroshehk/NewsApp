@@ -25,3 +25,5 @@ class AppFailureSportsStates extends AppStates {
   final String error;
   AppFailureSportsStates(this.error);
 }
+
+class AppChangeThemeModeStates extends AppStates {}

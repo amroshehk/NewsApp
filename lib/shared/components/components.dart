@@ -85,7 +85,7 @@ Widget newsItemBuilder(List<dynamic> article, String messageNoArticle,
               separatorBuilder: (context, index) => Padding(
                     padding: const EdgeInsetsDirectional.only(start: 20.0),
                     child: Container(
-                      color: Colors.yellow,
+                      color: Colors.grey,
                       child: const SizedBox(
                         width: double.infinity,
                         height: 1,
@@ -110,10 +110,7 @@ Widget newsItemBuilder(List<dynamic> article, String messageNoArticle,
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
                     messageNoArticle,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.black87),
+                    style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),

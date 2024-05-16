@@ -88,4 +88,11 @@ class AppCubit extends Cubit<AppStates>{
     });
   }
 
+  var isDarkMode = false;
+
+  void changeThemeMode() {
+    isDarkMode = !isDarkMode;
+    emit(AppChangeThemeModeStates());
+  }
+
 }
