@@ -104,4 +104,19 @@ class AppCubit extends Cubit<AppStates> {
       );
     }
   }
+
+
+  List<dynamic> search = [];
+
+  void getSearch(value) {
+    emit(AppLoadingSearchStates());
+    DioHelper.getSearchData(value).then((value) {
+      search = value.data["articles"];
+      print(search.toString());
+      emit(AppSuccessSearchStates());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AppFailureSearchStates(error.toString()));
+    });
+  }
 }

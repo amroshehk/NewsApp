@@ -27,3 +27,12 @@ class AppFailureSportsStates extends AppStates {
 }
 
 class AppChangeThemeModeStates extends AppStates {}
+
+
+
+class AppLoadingSearchStates extends AppStates {}
+class AppSuccessSearchStates extends AppStates {}
+class AppFailureSearchStates extends AppStates {
+  final String error;
+  AppFailureSearchStates(this.error);
+}

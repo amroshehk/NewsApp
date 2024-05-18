@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/modules/serach_screen.dart';
+import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/strings.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
@@ -19,7 +21,9 @@ class NewsLayout extends StatelessWidget {
               appBar: AppBar(
                 title: Text(appName),
                 actions: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                  IconButton(onPressed: () {
+                    pushTo(context,SearchScreen());
+                  }, icon: Icon(Icons.search)),
                   IconButton(onPressed: () {
                     cubit.changeThemeMode();
                   }, icon: Icon(Icons.brightness_4_outlined))

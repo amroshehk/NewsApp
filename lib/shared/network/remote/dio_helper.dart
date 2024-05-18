@@ -27,4 +27,13 @@ class DioHelper {
         );
 
   }
+
+  static Future<Response> getSearchData(value) async {
+    return
+      await getData(path: topHeadLineApi, queryParameters: {
+        'q':value,
+        'apiKey':apiKey,
+      }
+      );
+  }
 }

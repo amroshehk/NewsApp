@@ -7,3 +7,5 @@ String businessCategory = "business";
 String sportsCategory = "sports";
 String scienceCategory = "science";
 String technologyCategory = "technology";
+
+String searchApi = "v2/everything";
