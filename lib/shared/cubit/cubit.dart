@@ -1,7 +1,8 @@
-
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/business_screen.dart';
 import 'package:news_app/modules/science_screen.dart';
@@ -10,8 +11,9 @@ import 'package:news_app/modules/sports_screen.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
+import 'package:news_app/shared/shared_preferences.dart';
 
-class AppCubit extends Cubit<AppStates>{
+class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitiateStates());
 
   static AppCubit get(context) => BlocProvider.of(context);
@@ -47,10 +49,9 @@ class AppCubit extends Cubit<AppStates>{
     emit(AppBottomNavigationStates());
   }
 
- List<dynamic> businessArticles = [];
- List<dynamic> scienceArticles = [];
- List<dynamic> sportArticles = [];
-
+  List<dynamic> businessArticles = [];
+  List<dynamic> scienceArticles = [];
+  List<dynamic> sportArticles = [];
 
   void getBusinessData() {
     emit(AppLoadingBusinessStates());
@@ -58,7 +59,7 @@ class AppCubit extends Cubit<AppStates>{
       businessArticles = value.data["articles"];
       print(businessArticles.toString());
       emit(AppSuccessBusinessStates());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(AppFailureBusinessStates(error.toString()));
     });
@@ -70,7 +71,7 @@ class AppCubit extends Cubit<AppStates>{
       scienceArticles = value.data["articles"];
       print(scienceArticles.toString());
       emit(AppSuccessScienceStates());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(AppFailureScienceStates(error.toString()));
     });
@@ -82,7 +83,7 @@ class AppCubit extends Cubit<AppStates>{
       sportArticles = value.data["articles"];
       print(sportArticles.toString());
       emit(AppSuccessSportsStates());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(AppFailureSportsStates(error.toString()));
     });
@@ -90,9 +91,17 @@ class AppCubit extends Cubit<AppStates>{
 
   var isDarkMode = false;
 
-  void changeThemeMode() {
-    isDarkMode = !isDarkMode;
-    emit(AppChangeThemeModeStates());
+  void changeThemeMode({bool? isDarkFromShared}) {
+    if (isDarkFromShared != null) {
+      isDarkMode = isDarkFromShared;
+      emit(AppChangeThemeModeStates());
+    } else {
+      isDarkMode = !isDarkMode;
+      CacheHelper.setBool(key: "isDark", value: isDarkMode).then(
+        (value) {
+          emit(AppChangeThemeModeStates());
+        },
+      );
+    }
   }
-
 }
