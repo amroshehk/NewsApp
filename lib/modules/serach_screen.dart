@@ -27,6 +27,7 @@ class SearchScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: defaultTextFormField(
+                context:context,
                 controller: searchController,
                 labelText: "Serach",
                 prefixIcon: Icon(Icons.search),
@@ -43,7 +44,7 @@ class SearchScreen extends StatelessWidget {
                 },
               ),
             ),
-            Expanded(child: newsItemBuilder(list, "no business articles",state,context))
+            Expanded(child: newsItemBuilder(list, "no articles related to your input.",state,context,isSearch: true),)
           ] ),
         );
       },
