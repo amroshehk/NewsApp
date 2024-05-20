@@ -9,7 +9,7 @@ import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsLayout extends StatelessWidget {
-  const NewsLayout({super.key});
+  NewsLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,15 @@ class NewsLayout extends StatelessWidget {
                   }, icon: Icon(Icons.search)),
                   IconButton(onPressed: () {
                     cubit.changeThemeMode();
-                  }, icon: Icon(Icons.brightness_4_outlined))
+                  }, icon: Icon(Icons.brightness_4_outlined)),
+                  IconButton(onPressed: () {
+                    cubit.changeLanguage();
+                    cubit.getSciencesData();
+                    cubit.getSportsData();
+                    cubit.getBusinessData();
+                  }, icon: Icon(Icons.language_outlined),),
+                  Text(cubit.isEnglish?"EN":"AR",style: TextStyle(color: Colors.orange),),
+                  SizedBox(width: 10,)
                 ],
               ),
               bottomNavigationBar: BottomNavigationBar(

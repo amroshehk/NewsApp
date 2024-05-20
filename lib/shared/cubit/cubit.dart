@@ -55,7 +55,7 @@ class AppCubit extends Cubit<AppStates> {
 
   void getBusinessData() {
     emit(AppLoadingBusinessStates());
-    DioHelper.getArticlesByCategoryData(businessCategory).then((value) {
+    DioHelper.getArticlesByCategoryData(businessCategory,isEnglish).then((value) {
       businessArticles = value.data["articles"];
       print(businessArticles.toString());
       emit(AppSuccessBusinessStates());
@@ -67,7 +67,7 @@ class AppCubit extends Cubit<AppStates> {
 
   void getSciencesData() {
     emit(AppLoadingScienceStates());
-    DioHelper.getArticlesByCategoryData(scienceCategory).then((value) {
+    DioHelper.getArticlesByCategoryData(scienceCategory,isEnglish).then((value) {
       scienceArticles = value.data["articles"];
       print(scienceArticles.toString());
       emit(AppSuccessScienceStates());
@@ -79,7 +79,7 @@ class AppCubit extends Cubit<AppStates> {
 
   void getSportsData() {
     emit(AppLoadingSportsStates());
-    DioHelper.getArticlesByCategoryData(sportsCategory).then((value) {
+    DioHelper.getArticlesByCategoryData(sportsCategory,isEnglish).then((value) {
       sportArticles = value.data["articles"];
       print(sportArticles.toString());
       emit(AppSuccessSportsStates());
@@ -100,6 +100,23 @@ class AppCubit extends Cubit<AppStates> {
       CacheHelper.setBool(key: "isDark", value: isDarkMode).then(
         (value) {
           emit(AppChangeThemeModeStates());
+        },
+      );
+    }
+  }
+
+
+  var isEnglish = true;
+
+  void changeLanguage({bool? isEnglishShared}) {
+    if (isEnglishShared != null) {
+      isDarkMode = isEnglishShared;
+      emit(AppChangeLanguageStates());
+    } else {
+      isEnglish = !isEnglish;
+      CacheHelper.setBool(key: "isEnglish", value: isEnglish).then(
+            (value) {
+          emit(AppChangeLanguageStates());
         },
       );
     }

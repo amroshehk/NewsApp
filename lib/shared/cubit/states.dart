@@ -36,3 +36,6 @@ class AppFailureSearchStates extends AppStates {
   final String error;
   AppFailureSearchStates(this.error);
 }
+
+
+class AppChangeLanguageStates extends AppStates {}

@@ -1,4 +1,5 @@
 List<String> tabsName = ["Business", "Sports", "Science", "Settings"];
+List<String> arTabsName = ["اعمال", "رياضة", "علوم", "اعدادات"];
 
 String baseUrl = "https://newsapi.org/";
 String topHeadLineApi = "v2/top-headlines";

@@ -15,28 +15,34 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   bool? isDark= CacheHelper.getBool(key: "isDark");
+  bool? isEnglish= CacheHelper.getBool(key: "isEnglish");
   Bloc.observer = AppBlocObserver();
-  runApp(MyApp(isDark));
+  runApp(MyApp(isDark,isEnglish));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp(bool? isDark, {super.key});
+  bool? isDark;
+  bool? isEnglish;
+  MyApp(this.isDark,this.isEnglish, {super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(
-      create: (BuildContext context) => AppCubit()..getBusinessData()..changeThemeMode(),
+      create: (BuildContext context) => AppCubit()..getBusinessData()..changeThemeMode(isDarkFromShared: isDark)..changeLanguage(isEnglishShared: isEnglish),
         child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {},
     builder: (context, state) {
+      var cubit = AppCubit.get(context);
      return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           themeMode: AppCubit.get(context).isDarkMode ? ThemeMode.dark :  ThemeMode.light ,
           darkTheme: darkTheme(),
           theme: lightTheme(),
-          home: const NewsLayout(),
+          home: Directionality(
+              textDirection: cubit.isEnglish ? TextDirection.ltr:TextDirection.rtl,
+              child: NewsLayout()),
         );}
       ),
     );
